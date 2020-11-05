@@ -1,1 +1,1 @@
-hello
+import tkinter from tkinter
