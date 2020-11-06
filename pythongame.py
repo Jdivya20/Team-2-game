@@ -7,7 +7,7 @@ import random
 colors = ["Red", "Orange", "White", "Black", "Green", "Blue", "Brown", "Purple", "Cyan", "Yellow", "Pink", "Magenta"]
 timer = 60
 score = 0
-# displayed_word_color = ''
+# givenWordColor = ''
 def printtext():
     global e
     global username
@@ -23,7 +23,7 @@ def printtext():
     
     #if a=="okay":
     
-    # user_name = Label(my_window, text = string, font = app_font, fg= "red", bg="#ffdacc")
+    # user_name = Label(game, text = string, font = app_font, fg= "red", bg="#ffdacc")
     # user_name.pack(pady=10)  
 
 
@@ -31,12 +31,13 @@ def printtext():
             #LEVEL 2
 # This fuction will be called when start button is clicked
 def level2():
-   global displayed_word_color
-   if(timer == 60):
+    resetGame()
+    global givenWordColor
+    if(timer == 60):
        startCountDown2()
-       displayed_word_color = random.choice(colors).lower()
-       display_words.config(text=random.choice(colors), fg=displayed_word_color)
-       color_entry.bind('<Return>', displayNextWord2)
+       givenWordColor = random.choice(colors).lower()
+       display_words.config(text=random.choice(colors), fg=givenWordColor)
+       enteredcolor.bind('<Return>', displayNextWord2)
 
 
 
@@ -45,20 +46,20 @@ def startCountDown2():
     if(timer >= 0):
         time_left.config(text = "Game Ends in : " + str(timer) + "s")
         timer -= 1
-        time_left.after(500,startCountDown2)
+        time_left.after(900,startCountDown2)
         if (timer == -1):
             time_left.config(text="Game Over!!!")
 
 def displayNextWord2(event):
-    global displayed_word_color
+    global givenWordColor
     global score
     if(timer > 0):
-        if(displayed_word_color == color_entry.get().lower()):
+        if(givenWordColor == enteredcolor.get().lower()):
             score += 1
             game_score.config(text = "Your Score : " + str(score))
-        color_entry.delete(0, END)
-        displayed_word_color = random.choice(colors).lower()
-        display_words.config(text = random.choice(colors), fg = displayed_word_color)
+        enteredcolor.delete(0, END)
+        givenWordColor = random.choice(colors).lower()
+        display_words.config(text = random.choice(colors), fg = givenWordColor)
 
 
 
@@ -66,53 +67,53 @@ def displayNextWord2(event):
 
 
 def startGame():
-    global displayed_word_color
+    global givenWordColor
     if(timer == 60):
         startCountDown()
-        displayed_word_color = random.choice(colors).lower()
-        display_words.config(text=random.choice(colors), fg=displayed_word_color,bg="#ffdacc")
-        color_entry.bind('<Return>', displayNextWord)
+        givenWordColor = random.choice(colors).lower()
+        display_words.config(text=random.choice(colors), fg=givenWordColor,bg="#ffdacc")
+        enteredcolor.bind('<Return>', displayNextWord)
 # #This function is to reset the game
 def resetGame():
-    global timer, score, displayed_word_color
+    global timer, score, givenWordColor
     timer = 60
     score = 0
-    displayed_word_color = ''
+    givenWordColor = ''
     game_score.config(text = "Your Score : " + str(score))
     #startGame()
-    # display_words.config(text=random.choice(colors), fg=displayed_word_color,bg="#ffdacc")
+    # display_words.config(text=random.choice(colors), fg=givenWordColor,bg="#ffdacc")
     # display_words.config(text = '')
     time_left.config(text="Game Ends in : --")
-    color_entry.delete(END)
+    enteredcolor.delete(END)
 #This function will start count down
 def startCountDown():
     global timer
     if(timer >= 0):
         if username:
             username_label.config(text = f"Welcome {username}")
-            time_left.config(text = "Game Ends in : " + str(timer) + "s")
+            time_left.config(text = "Game Ends in : " + str(timer) + "")
             timer -= 1
             time_left.after(1000,startCountDown)
             if (timer == -1):
                 time_left.config(text="Game Over!!!")
 #This function to display random words
 def displayNextWord(event):
-    global displayed_word_color
+    global givenWordColor
     global score
     if(timer > 0):
-        if(displayed_word_color == color_entry.get().lower()):
+        if(givenWordColor == enteredcolor.get().lower()):
             score += 1
             game_score.config(text = "Your Score : " + str(score))
-        color_entry.delete(0, END)
-        displayed_word_color = random.choice(colors).lower()
-        display_words.config(text = random.choice(colors), fg = displayed_word_color,bg="#ffdacc")
+        enteredcolor.delete(0, END)
+        givenWordColor = random.choice(colors).lower()
+        display_words.config(text = random.choice(colors), fg = givenWordColor,bg="#ffdacc")
 name = tk.Tk()
 name.title("username")
 name.geometry("300x100")
-my_window = Tk()
-my_window.title("Color Game")
-my_window.geometry("500x200")
-#my_window.title('Name')
+game = Tk()
+game.title("Color Game")
+game.geometry("500x200")
+#game.title('Name')
 
 e = Entry(name)
 e.pack()
@@ -127,37 +128,37 @@ game_desp = "Enter the color of the words displayed below. \n And Keep in mind n
 
 myFont = font.Font(family='Helvetica')
 
-game_description = Label(my_window, text = game_desp, font = app_font, fg= "black", bg="#ffdacc")
+game_description = Label(game, text = game_desp, font = app_font, fg= "black", bg="#ffdacc")
 game_description.pack()
-game_score = Label(my_window, text = "Your Score : " + str(score), font = (font.Font(size=16)), fg = "green",bg="#ffdacc")
+game_score = Label(game, text = "Your Score : " + str(score), font = (font.Font(size=16)), fg = "green",bg="#ffdacc")
 game_score.pack()
 
-display_words = Label(my_window , font = (font.Font(size=55)), pady = 10,bg="#ffdacc")
+display_words = Label(game , font = (font.Font(size=55)), pady = 10,bg="#ffdacc")
 display_words.pack()
 
-time_left = Label(my_window, font = (font.Font(size=14)), fg = "red",bg="#ffdacc")
+time_left = Label(game, font = (font.Font(size=14)), fg = "red",bg="#ffdacc")
 time_left.pack()
 
-username_label = Label(my_window, font = (font.Font(size=14)), fg = "red",bg="#ffdacc")
+username_label = Label(game, font = (font.Font(size=14)), fg = "red",bg="#ffdacc")
 username_label.pack()
 
 
-color_entry = Entry(my_window, width = 30)
+color_entry = Entry(game, width = 30)
 color_entry.pack(pady = 10)
 
-btn_frame = Frame(my_window, width= 80, height = 40, bg= 'white')
+btn_frame = Frame(game, width= 80, height = 40, bg= 'white')
 btn_frame.pack(side = BOTTOM)
 
 start_button = Button(btn_frame, text = "Start", width = 20, fg = "black", bg = "yellow", bd = 12,padx = 20, pady = 10 , command = startGame)
 start_button.grid(row=0, column= 0)
 
-start_button = Button(btn_frame, text = "level-2", width = 20, fg = "black", bg = "pink", bd = 12,padx = 20, pady = 10 , command = level2)
+start_button = Button(btn_frame, text = "Upgrade Level", width = 20, fg = "black", bg = "pink", bd = 12,padx = 20, pady = 10 , command = level2)
 start_button.grid(row=0, column= 2)
 
 reset_button = Button(btn_frame, text = "Reset", width = 20, fg = "black", bg = "salmon", bd = 12,padx = 20, pady = 10 , command = resetGame)
 reset_button.grid(row=0, column= 1)
 
 
-my_window.configure(background='#ffdacc')
-my_window.geometry('600x300')
-my_window.mainloop()
+game.configure(background='#ffdacc')
+game.geometry('600x300')
+game.mainloop()
