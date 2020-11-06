@@ -16,7 +16,7 @@ def printtext():
     # user_name.config(text=string)
     if username:
         print("Hi"+username+"!!,Welcome")
-        messagebox.showinfo("message","Hi" +username+"!!,Welcome")
+        messagebox.showinfo("message","Hi " +username+" !!,Welcome")
         name.destroy()
     else:
         messagebox.showwarning("Alert", "Please enter your name")
@@ -28,37 +28,37 @@ def printtext():
 
 
 
-#             #LEVEL 2
-# #This fuction will be called when start button is clicked
-# #def difficulty():
-#  #   global displayed_word_color
-#   #  if(timer == 60):
-#    #     startCountDown2()
-#     #    displayed_word_color = random.choice(colors).lower()
-#      #   display_words.config(text=random.choice(colors), fg=displayed_word_color)
-#       #  color_entry.bind('<Return>', displayNextWord2)
+            #LEVEL 2
+# This fuction will be called when start button is clicked
+def level2():
+   global displayed_word_color
+   if(timer == 60):
+       startCountDown2()
+       displayed_word_color = random.choice(colors).lower()
+       display_words.config(text=random.choice(colors), fg=displayed_word_color)
+       color_entry.bind('<Return>', displayNextWord2)
 
 
 
-# # def startCountDown2():
-# #     global timer
-# #     if(timer >= 0):
-# #         time_left.config(text = "Game Ends in : " + str(timer) + "s")
-# #         timer -= 1
-# #         time_left.after(500,startCountDown2)
-# #         if (timer == -1):
-# #             time_left.config(text="Game Over!!!")
+def startCountDown2():
+    global timer
+    if(timer >= 0):
+        time_left.config(text = "Game Ends in : " + str(timer) + "s")
+        timer -= 1
+        time_left.after(500,startCountDown2)
+        if (timer == -1):
+            time_left.config(text="Game Over!!!")
 
-# # def displayNextWord2(event):
-# #     global displayed_word_color
-# #     global score
-# #     if(timer > 0):
-# #         if(displayed_word_color == color_entry.get().lower()):
-# #             score += 1
-# #             game_score.config(text = "Your Score : " + str(score))
-# #         color_entry.delete(0, END)
-# #         displayed_word_color = random.choice(colors).lower()
-# #         display_words.config(text = random.choice(colors), fg = displayed_word_color)
+def displayNextWord2(event):
+    global displayed_word_color
+    global score
+    if(timer > 0):
+        if(displayed_word_color == color_entry.get().lower()):
+            score += 1
+            game_score.config(text = "Your Score : " + str(score))
+        color_entry.delete(0, END)
+        displayed_word_color = random.choice(colors).lower()
+        display_words.config(text = random.choice(colors), fg = displayed_word_color)
 
 
 
@@ -151,8 +151,8 @@ btn_frame.pack(side = BOTTOM)
 start_button = Button(btn_frame, text = "Start", width = 20, fg = "black", bg = "yellow", bd = 12,padx = 20, pady = 10 , command = startGame)
 start_button.grid(row=0, column= 0)
 
-# # start_button = Button(btn_frame, text = "level-2", width = 20, fg = "black", bg = "pink", bd = 12,padx = 20, pady = 10 , command = difficulty)
-# # start_button.grid(row=0, column= 2)
+start_button = Button(btn_frame, text = "level-2", width = 20, fg = "black", bg = "pink", bd = 12,padx = 20, pady = 10 , command = level2)
+start_button.grid(row=0, column= 2)
 
 reset_button = Button(btn_frame, text = "Reset", width = 20, fg = "black", bg = "salmon", bd = 12,padx = 20, pady = 10 , command = resetGame)
 reset_button.grid(row=0, column= 1)
